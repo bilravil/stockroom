@@ -1,0 +1,6 @@
+{
+	"port" : 8086,
+	"db": {
+    	"connection": "postgres://root:ravbec007@mydb.cfxhnwaywwq6.us-west-2.rds.amazonaws.com:5432/rezident"
+  	}
+}

@@ -42,9 +42,9 @@ module.exports = function(api) {
 	router.post("/W4S/Update", w4s.update);
 	router.post("/W4S/Get", w4s.get);
 
-	router.post("/Propery/Create", property.create);
-	router.post("/Propery/Update", property.update);
-	router.post("/Propery/Get", property.get);
+	router.post("/Property/Create", property.create);
+	router.post("/Property/Update", property.update);
+	router.post("/Property/Get", property.get);
 
 	router.post("/Task/Create", task.create);
 	router.post("/Task/Update", task.update);
@@ -63,7 +63,6 @@ module.exports = function(api) {
 	router.post("/Salary/Update", salary.update);
 	router.post("/Salary/Delete", salary.delete);
 	router.post("/Salary/Get", salary.get);
-
 
 	return router;
 }

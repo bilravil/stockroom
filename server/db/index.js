@@ -16,9 +16,9 @@ exports.Init = function(connection, api,callback) {
     var engine = new Sequelize(connection, { logging: false });
 
     db.stock = require('./models/stock.js')(engine, api);
-    db.stocktaking = require('./models/stocktaking.js')(engine, api);
-    db.material = require('./models/material.js')(engine, api);
     db.property = require('./models/property.js')(engine, api);
+    db.material = require('./models/material.js')(engine, api);
+    db.stocktaking = require('./models/stocktaking.js')(engine, api);
     db.score = require('./models/score.js')(engine, api);
     db.worker = require('./models/worker.js')(engine, api);
     db.speciality = require('./models/speciality.js')(engine, api);

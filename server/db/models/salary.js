@@ -2,18 +2,18 @@ module.exports = function(engine, api) {
     var Sequelize = require('sequelize');
     var db = api.GetDB();
 
-    var Material = engine.define('material', {
+    var Salary = engine.define('salary', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
         prevSalary: { type: Sequelize.INTEGER },
         curSalary: { type: Sequelize.INTEGER },
         detailSalary: { type: Sequelize.INTEGER }
     }, {
         freezeTableName: true,
-        tableName: 'material',
+        tableName: 'salary',
         classMethods: {
             FindAllSend: function(query) {
                 return new Promise( (resolve,reject) =>{
-                    Material.findAndCountAll(query).then( result => {
+                    Salary.findAndCountAll(query).then( result => {
                         if (result != null) resolve({ rows: result.rows, all: result.count });
                         else resolve([]);
                     });
@@ -22,17 +22,17 @@ module.exports = function(engine, api) {
 
             Create: function(param) {
                 return new Promise( (resolve,reject) =>{
-                    Material.create(param).then( material=> { resolve(material); })
+                    Salary.create(param).then( salary=> { resolve(salary); })
                       .catch(function (error){ reject(error); });
                 })
             },
 
             Update: function(param) {
                 return new Promise( (resolve,reject) =>{
-                    Material.findOne({ where : { id : param.id}}).then(material=> {
-                        if(material !== null){
-                            material.update(param).
-                            then(function () { resolve(material.get()); }).
+                    Salary.findOne({ where : { id : param.id}}).then(salary=> {
+                        if(salary !== null){
+                            salary.update(param).
+                            then(function () { resolve(salary.get()); }).
                             error(function (error) { reject(error); });
                         }else  reject( { code : 404 , msg : "" });                      
                       })
@@ -44,11 +44,11 @@ module.exports = function(engine, api) {
 
             Delete: function(param) {
                 return new Promise( (resolve,reject) =>{
-                    Material.findOne({ where : { id : param.id}}).then( material=> {
-                        if(material !== null){
+                    Salary.findOne({ where : { id : param.id}}).then( salary=> {
+                        if(salary !== null){
                             param.state = 1;
-                            material.update(param).
-                            then(function () { resolve(material.get()); }).
+                            salary.update(param).
+                            then(function () { resolve(salary.get()); }).
                             error(function (error) { reject(error); });
                         }else  reject( { code : 404 , msg : "" });                      
                       })
@@ -62,8 +62,8 @@ module.exports = function(engine, api) {
 
                 if (param.id != undefined && !Array.isArray(param.id)) {
                     return new Promise( (resolve,reject) =>{
-                        Material.findOne({ where: { id: param.id } }).then( material => { 
-                            resolve(material ? material.get() : {});
+                        Salary.findOne({ where: { id: param.id } }).then( salary => { 
+                            resolve(salary ? salary.get() : {});
                             return;
                         })              
                     });
@@ -90,13 +90,13 @@ module.exports = function(engine, api) {
                     query.include.push(q);
                 }
 
-                return Material.FindAllSend(query);
+                return Salary.FindAllSend(query);
 
             }
         }
     });   
 
-    Material.belongsTo(db.task, { foreignKey: 'idTask' });
+    Salary.belongsTo(db.task, { foreignKey: 'idTask' });
     
-    return Material;
+    return Salary;
 }

@@ -4,8 +4,8 @@ module.exports = function(engine, api) {
 
     var Material = engine.define('material', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
-        name: { type: Sequelize.VARCHAR(255) },
-        type: { type: Sequelize.VARCHAR(255) },
+        name: { type: Sequelize.STRING(255) },
+        type: { type: Sequelize.STRING(255) },
         state: { type: Sequelize.INTEGER , defaultValue: 0 }
     }, {
         freezeTableName: true,

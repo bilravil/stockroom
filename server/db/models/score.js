@@ -13,7 +13,7 @@ module.exports = function(engine, api) {
         purchaseCount: { type: Sequelize.INTEGER },
         price: { type: Sequelize.INTEGER },
         expendCount: { type: Sequelize.INTEGER },
-        invoice: { type: Sequelize.VARCHAR(255) }
+        invoice: { type: Sequelize.STRING(255) }
     }, {
         freezeTableName: true,
         tableName: 'score',

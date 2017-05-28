@@ -4,8 +4,8 @@ module.exports = function(engine, api) {
 
     var Task = engine.define('task', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
-        name: { type: Sequelize.VARCHAR(255) },
-        number: { type: Sequelize.VARCHAR(30) },
+        name: { type: Sequelize.STRING(255) },
+        number: { type: Sequelize.STRING(30) },
         detailCount: { type: Sequelize.INTEGER  },
         prevTime: { type: Sequelize.INTEGER  },
         totalTime: { type: Sequelize.INTEGER  },

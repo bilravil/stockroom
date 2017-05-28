@@ -1,28 +1,23 @@
 
 module.exports = function(api) {
-	var Service = {
+	var Worker4Speciality = {
 		create(req, res) {
-		    api.GetDB().service.Create(req.body).then( 
+		    api.GetDB().worker4speciality.Create(req.body).then( 
 		    	result => res.status(200).json(result),
 		    	error => res.status(500).json(error))
 		},
 		update(req, res) {
-		    api.GetDB().service.Update(req.body).then( 
-		    	result => res.status(200).json(result),
-		    	error => res.status(error.code).json(error))
-		},
-		delete(req, res) {
-		    api.GetDB().service.Delete(req.body).then( 
+		    api.GetDB().worker4speciality.Update(req.body).then( 
 		    	result => res.status(200).json(result),
 		    	error => res.status(error.code).json(error))
 		},
 		get(req, res) {
-		    api.GetDB().service.Get(req.body).then( 
+		    api.GetDB().worker4speciality.Get(req.body).then( 
 		    	result => res.status(200).json(result),
 		    	error => res.status(500).json(error))
 		},
 
 	}
 
-	return Service;
+	return Worker4Speciality;
 }

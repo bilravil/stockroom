@@ -15,18 +15,17 @@ exports.GetDB = function() { return db; }
 exports.Init = function(connection, api,callback) {
     var engine = new Sequelize(connection, { logging: false });
 
-    db.patient = require('./models/patient.js')(engine, api);
-    db.service = require('./models/service.js')(engine, api);
-    db.research = require('./models/research.js')(engine, api);
-    
- /* db.speciality = require('./speciality.js')(engine, url, api, jsonParser);
-    db.doctor = require('./doctor.js')(engine, url, api, jsonParser);
-    db.role = require('./role.js')(engine, url, api, jsonParser);
-    
-    db.auth = require('./auth.js')(engine, url, api, jsonParser);
-    db.servicecode = require('./servicecode.js')(engine, url, api, jsonParser);
-    db.test = require('./test.js')(engine, url, api, jsonParser);
-*/
+    db.stock = require('./models/stock.js')(engine, api);
+    db.stocktaking = require('./models/stocktaking.js')(engine, api);
+    db.material = require('./models/material.js')(engine, api);
+    db.property = require('./models/property.js')(engine, api);
+    db.score = require('./models/score.js')(engine, api);
+    db.worker = require('./models/worker.js')(engine, api);
+    db.speciality = require('./models/speciality.js')(engine, api);
+    db.worker4speciality = require('./models/worker4speciality.js')(engine, api);
+    db.task = require('./models/task.js')(engine, api);
+    db.salary = require('./models/salary.js')(engine, api);
+    db.work = require('./models/work.js')(engine, api);
     
     engine.sync().then(callback);
 }

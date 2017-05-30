@@ -20,8 +20,11 @@ var api = {
     GetDB: function() { return db.GetDB(); },
 };
 
+
+
 function Init(callback){
 	app.use(bodyParser.json());
+	app.use(express.static(__dirname + '/www'));
 	app.use(bodyParser.urlencoded({extended: true}));
 
 	http.listen(config.port, function() {

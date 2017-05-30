@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ВКР</title>
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <script>
+        var app = angular.module('App', []);
+        var urlBack = "{{urlBack}}";
+        app.controller('LoginCtrl', function ($scope, $http, $timeout, $element) {
+            //$scope.login = "ddv";
+            //$scope.password = "123";
+            $scope.KeyDown = function ($event) {
+                if ($event.keyCode == 13) $scope.Login();
+            }
+/*
+            $scope.Login = function () {
+                delete $scope.message;
+
+                var request = { login: $scope.login, password: $scope.password };
+                $http.post('/Api/Db/Login', request ).
+                    success(function (result, status, headers, config) {
+                        if (result.success != undefined && result.success == false) {$scope.message = result.message;return;}
+                        //window.location.href = '/';
+                        window.location.href = (urlBack == "{{urlBack}}" ? '/' : urlBack);
+                    });
+            }*/
+        });
+    </script>
+</head>
+
+<body ng-app="App" ng-controller="LoginCtrl">
+    <div class="modal show">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Вход</h2>
+                </div>
+                <div class="modal-body">
+                    <div style="max-width: 430px;padding: 15px; margin: 0 auto;">
+                        <input type="text" class="form-control" placeholder="Логин" autofocus="" ng-model="login" style="margin-bottom:10px" ng-keydown="KeyDown($event)">
+                        <input type="password" class="form-control" placeholder="Пароль" ng-model="password" ng-keydown="KeyDown($event)">
+                        <label style="margin-top:20px" ng-show="message!=undefined">{{message}} </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-primary" ng-click="Login()">Войти</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

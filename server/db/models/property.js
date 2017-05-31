@@ -1,4 +1,4 @@
-module.exports = function(engine, api) {
+module.exports = function(engine,api) {
     var Sequelize = require('sequelize');
     var db = api.GetDB();
 
@@ -65,16 +65,7 @@ module.exports = function(engine, api) {
                     query.where.$and.push({ id: { $in: param.id } });
                 }
 
-                if (param.material != undefined) {
-                    query.include = query.include || [];
-                    var q = { model: db.material, as: 'material' }
-                    if (param.material.id != undefined) {
-                        q.where = q.where || {}; q.where.$and = q.where.$and || [];
-                        q.where.$and.push({ id: param.material.id });
-
-                    }
-                    query.include.push(q);
-                }
+                
 
 
                 return Property.FindAllSend(query);

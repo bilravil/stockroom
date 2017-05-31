@@ -13,6 +13,15 @@ module.exports = function(api) {
 	const work = require('./work.js')(api);
 	const score = require('./score.js')(api);
 	const salary = require('./salary.js')(api);
+	const auth = require('./auth.js')(api);
+	const role = require('./role.js')(api);
+
+	router.post("/Login", auth.login);
+	router.post("/Login/Create", auth.create);
+	router.post("/Login/Get", auth.get);
+
+	router.post("/Role/Create", role.create);
+	router.post("/Role/Get", role.get);
 
 	router.post("/Stock/Create", stock.create);
 	router.post("/Stock/Update", stock.update);

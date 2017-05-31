@@ -1,4 +1,4 @@
-module.exports = function(engine, api) {
+module.exports = function(engine,api) {
     var Sequelize = require('sequelize');
     var db = api.GetDB();
 
@@ -90,6 +90,17 @@ module.exports = function(engine, api) {
                     query.where.$and = query.where.$and || [];
                     query.where.$and.push({ type: { $iLike: "%" + param.type + "%" }});
                 }
+
+                // if (param.property != undefined) {
+                //     query.include = query.include || [];
+                //     var q = { model: db.property, as: 'property' }
+                //     if (param.property.id != undefined) {
+                //         q.where = q.where || {}; q.where.$and = q.where.$and || [];
+                //         q.where.$and.push({ id: param.property.id });
+
+                //     }
+                //     query.include.push(q);
+                // }
 
                 return Material.FindAllSend(query);
 

@@ -1,4 +1,4 @@
-module.exports = function(engine, api) {
+module.exports = function(engine,api) {
     var Sequelize = require('sequelize');
     var db = api.GetDB();
 
@@ -104,6 +104,7 @@ module.exports = function(engine, api) {
     });   
 
     Score.belongsTo(db.material, { foreignKey: 'idMaterial' });
+    Score.belongsTo(db.task, { foreignKey: 'idTask' });
     
     return Score ;
 }

@@ -1,4 +1,4 @@
-module.exports = function(engine, api) {
+module.exports = function(engine,api) {
     var Sequelize = require('sequelize');
     var db = api.GetDB();
 

@@ -1,5 +1,6 @@
 
 module.exports = function(api) {
+
 	var Score = {
 		create(req, res) {
 		    api.GetDB().score.Create(req.body).then( 

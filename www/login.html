@@ -14,23 +14,22 @@
         var app = angular.module('App', []);
         var urlBack = "{{urlBack}}";
         app.controller('LoginCtrl', function ($scope, $http, $timeout, $element) {
-            //$scope.login = "ddv";
-            //$scope.password = "123";
             $scope.KeyDown = function ($event) {
                 if ($event.keyCode == 13) $scope.Login();
             }
-/*
+
             $scope.Login = function () {
                 delete $scope.message;
 
                 var request = { login: $scope.login, password: $scope.password };
-                $http.post('/Api/Db/Login', request ).
-                    success(function (result, status, headers, config) {
-                        if (result.success != undefined && result.success == false) {$scope.message = result.message;return;}
+                $http.post('/Db/Login', request ).
+                    then(function (result) {
+                        console.log(result);
+                        //if (result.success != undefined && result.success == false) {$scope.message = result.message;return;}
                         //window.location.href = '/';
                         window.location.href = (urlBack == "{{urlBack}}" ? '/' : urlBack);
                     });
-            }*/
+            }
         });
     </script>
 </head>

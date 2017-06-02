@@ -4,7 +4,7 @@ module.exports = function(engine,api) {
 
     var Stock = engine.define('stock', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
-        numver: { type: Sequelize.STRING(10)}
+        number: { type: Sequelize.STRING(10)}
     }, {
         freezeTableName: true,
         tableName: 'stock',

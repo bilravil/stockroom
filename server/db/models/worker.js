@@ -8,6 +8,7 @@ module.exports = function(engine,api) {
         first: { type: Sequelize.STRING(255), validate : { is: ["^[a-z]+$",'i'] } },
         middle: { type: Sequelize.STRING(255), validate : { is: ["^[a-z]+$",'i'] } },     
         persNum: { type: Sequelize.INTEGER },
+        speciality: { type: Sequelize.STRING(255) },
         state : { type: Sequelize.INTEGER,defaultValue : 0 },
     }, {
         freezeTableName: true,

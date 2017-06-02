@@ -16,8 +16,10 @@ module.exports = function(api) {
 	const role = require('./role.js')(api);
 
 	router.post("/Login", auth.login);
+	router.post("/Logout", auth.logout);
 	router.post("/Login/Create", auth.create);
 	router.post("/Login/Get", auth.get);
+	router.post("/Login/GetAuth", auth.getAuth);
 
 	router.post("/Role/Create", role.create);
 	router.post("/Role/Get", role.get);

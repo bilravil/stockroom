@@ -12,16 +12,27 @@ module.exports = function(api) {
 	            	req.session.authorized = true;
                     req.session.username = req.body.login;
                     req.session.uuid = auth.id;
-                    console.log(req.body.login);
                     res.status(200).json({uuid: req.session.uuid})
 	            },
 	            error => res.status(500).json(error))
+		},
+		logout(req, res) {		 
+			delete req.session.authorized;
+        	delete req.session.username;
+        	res.send({ success: true });       
 		},
 		get(req, res) {
 		    api.GetDB().auth.Get(req.body).then( 
 		    	result => res.status(200).json(result),
 		    	error => res.status(500).json(error))
 		},
+		getAuth(req,res){
+			api.GetDB().auth.Get({login:req.session.username}).then(
+				user => {
+					api.GetDB().role.Get({id:user.idRole}).then(role=>res.send(role),err=>console.log(err))
+				},err=>console.log(err))
+				
+		}
 
 	}
 

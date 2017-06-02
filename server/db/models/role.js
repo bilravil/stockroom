@@ -6,7 +6,7 @@ module.exports = function (engine,api) {
     var Role = engine.define('role', {
         name: { type: Sequelize.STRING(100) },
         rights: { type: Sequelize.JSON },
-        id: { type: Sequelize.UUID,primaryKey: true, }
+        id: { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV1,primaryKey: true, }
     },
 		{
 		    freezeTableName: true, tableName: 'role',
@@ -30,10 +30,10 @@ module.exports = function (engine,api) {
 		            var query = { raw: true/*,order:[["did","ASC"]]*/ };
 		            if (param.paging != undefined) { query.offset = param.paging.current; query.limit = param.paging.show; }
 
-		            if (param.id != undefined && Array.isArray(param.id)) {
+		            if (param.id != undefined) {
 	                    query.where = query.where || {};
 	                    query.where.$and = query.where.$and || [];
-	                    query.where.$and.push({ id: { $in: param.id } });
+	                    query.where.$and.push({ id: { $eq: param.id } });
 	                }
 
 		            

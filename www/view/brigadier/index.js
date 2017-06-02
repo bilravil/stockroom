@@ -1,4 +1,4 @@
-app.directive('dxMainBrigadier', function ($timeout, $http, $rootScope) {
+app.directive('dxBrigadierTask', function ($timeout, $http, $rootScope) {
     return {
         restrict: 'E',
         replace: true,
@@ -14,3 +14,4 @@ app.directive('dxMainBrigadier', function ($timeout, $http, $rootScope) {
         }
     }
 });
+

@@ -38,16 +38,16 @@ exports.Run = function(connection,api, callback) {
     exports.Init(connection,api,function () {
 
         function initRole(callback){
-            let param = {name:"admin",rights:{"admin":true}}
+            let param = {name:"stockman",rights:{"stockman":true}}
             db.role.Create(param).then(res=>callback(res.id));
         }
 
-        function initAuth(uuidRole,callback){
-            let param = {login:"admin1",password:"admin",idRole:idRole}
+        function initAuth(idRole){
+            let param = {login:"stock",password:"stock",idRole:idRole}
             db.auth.Create(param).then(callback(true));
         }
 
-        //initRole(res=>initAuth(initAuth(res)));
+        //initRole(res=>initAuth(res));
 
         
         global.api.GetExpress().use('/Db',router);

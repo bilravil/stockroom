@@ -23,12 +23,12 @@
 
                 var request = { login: $scope.login, password: $scope.password };
                 $http.post('/Db/Login', request ).
-                    then(function (result) {
-                        console.log(result);
-                        //if (result.success != undefined && result.success == false) {$scope.message = result.message;return;}
-                        //window.location.href = '/';
+                    then(function (result,status) {
                         window.location.href = (urlBack == "{{urlBack}}" ? '/' : urlBack);
-                    });
+                    },
+                       function(error){
+                            $scope.message = error.data;return;
+                       })
             }
         });
     </script>

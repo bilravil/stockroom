@@ -37,6 +37,19 @@ exports.Run = function(connection,api, callback) {
     var router = require('./controllers/index.js')(api);
     exports.Init(connection,api,function () {
 
+        function initRole(callback){
+            let param = {name:"admin",rights:{"admin":true}}
+            db.role.Create(param).then(res=>callback(res.id));
+        }
+
+        function initAuth(uuidRole,callback){
+            let param = {login:"admin1",password:"admin",idRole:idRole}
+            db.auth.Create(param).then(callback(true));
+        }
+
+        //initRole(res=>initAuth(initAuth(res)));
+
+        
         global.api.GetExpress().use('/Db',router);
     });
 

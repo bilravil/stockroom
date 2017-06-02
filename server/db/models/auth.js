@@ -5,8 +5,7 @@ module.exports = function (engine,api) {
     var md5 = require('md5');
     var Auth = engine.define('auth', {
         login: { type: Sequelize.STRING(100),primaryKey: true, },
-        password: { type: Sequelize.STRING(100) },
-        id: { type: Sequelize.UUID }
+        password: { type: Sequelize.STRING(100) }
     },
 		{
 		    freezeTableName: true, tableName: 'auth',

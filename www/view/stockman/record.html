@@ -1,29 +1,22 @@
 <div>
     <div>
-       <h1 class="page-header">Учет</h1>
+       <h1 class="page-header">Учёт</h1>
         <div class="container-fluid">
             <div class="row" style="border-bottom: 1px solid #ccc;padding-top:20px;">
-                <div class="col-xs-3"> Наименование материала</div>
-                <div class="col-xs-3"> Материал</div>
-                <div class="col-xs-2"> Наличие</div>
-                <div class="col-xs-2"> Приход(Дата)</div>
-                <div class="col-xs-2"> Расход(Дата)</div>
+                <div class="col-xs-4"> Наименование материала</div>
+                <div class="col-xs-4"> Материал</div>
+                <div class="col-xs-3"> Наличие</div>
+
             </div>
             <div class="row" ng-repeat="item in items" style="border-bottom: 1px solid #ccc;">
                 <a href="#" ng-click="Switch(item)">
-                    <div class="col-xs-3">
+                    <div class="col-xs-4">
                           
                    </div>
-                   <div class="col-xs-3" >
+                   <div class="col-xs-4" >
 
                    </div>
-                  <div class="col-xs-2">
-
-                  </div>
-                   <div class="col-xs-2">
-
-                  </div>
-                   <div class="col-xs-2">
+                  <div class="col-xs-3">
 
                   </div>
               </a>
@@ -34,14 +27,4 @@
               </div>
           </div>
       </div>
-
-     <div ng-if="view=='newTest'">
-         <h1 class="page-header">
-             <button class="btn btn-primary" ng-click="Switch('diary')">
-                 <span class="glyphicon glyphicon-chevron-left"></span>
-             </button> Принять пациента
-         </h1>
-         <div ng-if="integration.id == 'inovus'"><dx-main-doctor-take-inovus-patient></dx-main-doctor-take-inovus-patient></div>
-         <div ng-if="integration.id == 'bars'"><dx-main-doctor-take-inovus-patient></dx-main-doctor-take-inovus-patient></div>
-     </div>
   </div>

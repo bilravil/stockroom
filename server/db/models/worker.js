@@ -72,7 +72,7 @@ module.exports = function(engine,api) {
                     });
                 }
 
-                var query = { raw: true, order: [["first", "ASC"]] };
+                var query = { raw: true, order: [["id", "ASC"]] };
                 if (param.paging != undefined) { query.offset = param.paging.current;
                     query.limit = param.paging.show; }
 
@@ -88,7 +88,7 @@ module.exports = function(engine,api) {
                     query.where.$and.push({ persNum: { $eq: param.persNum } });
                 }
 
-                if (param.last != undefined) {
+                if (param.first != undefined) {
                     query.where = query.where || {};
                     query.where.$and = query.where.$and || [];
                     query.where.$and.push({ $or: [{ first: { $eq: null } }, { first: { $iLike: "%" + param.first + "%" } }] });

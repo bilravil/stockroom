@@ -1,52 +1,61 @@
 <div>
-    <div>
-
-       <h1 class="page-header">Стеллажи</h1>
-
-        <div class="container-fluid">
-            <div class="row" style="border-bottom: 1px solid #ccc;padding-top:20px;">
-                <div class="col-xs-1">№ Стеллажа</div>
-                <div class="col-xs-1" >№ Задачи</div>
-                <div class="col-xs-2"> Дата</div>
-                <div class="col-xs-2">Наименование</div>
-                <div class="col-xs-3">Материал(кол-во)</div>
-                <div class="col-xs-1" >Диаметр, ММ</div>
-                <div class="col-xs-1" >Длина, ММ</div>
-            </div>
-            <div class="row" ng-repeat="item in items" style="border-bottom: 1px solid #ccc;">
-                <a href="#" ng-click="Switch(item)">
-                    <div class="col-xs-2">
-                          
-                   </div>
-                   <div class="col-xs-2" >
-
-                   </div>
-                  <div class="col-xs-2">
-
-                  </div>
-                  <div class="col-xs-2">
-
-                  </div>
-                    <div class="col-xs-3" >
-
+    <h1 class="page-header">Стеллажи</h1>
+    <div class="form-inline">
+        <button type="button" class="btn btn-primary" ng-click="Add()">Новый</button>
+        <input type="text" class="form-control" placeholder="Наименование" ng-model="filter.name" />
+        <button type="button" class="btn pull-right"><span class="glyphicon glyphicon-refresh " aria-hidden="true"></span></button>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col-sm-4">
+            <div class="list-group" style="margin-top:20px;font-size:x-small">
+                <a href="#" class="list-group-item" ng-class="{active:select.id==item.id}" ng-repeat="item in items" ng-click="Select(item)">
+                    <div class="btn-group pull-right">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="Delete(item,$event)" style="cursor:pointer;font-size: 20px;" title="Удалить"></span>
                     </div>
-                  <div class="col-xs-1"></div>
-              </a>
+                    <h4 class="list-group-item-heading">{{item.number}}</h4> 
+                </a>
+            </div>
+            <div class="row">
+                <div class="pull-right" ng-show="filter.paging.all>10">
+                    <dx-paging all="filter.paging.all" show="filter.paging.show" current="filter.paging.current" on-paging="Paging(current)"></dx-paging>
+                </div>
+            </div>
 
-          </div>
-              <div class="pull-right" ng-show="filter.paging.all>10">
-                  <dx-paging all="filter.paging.all" show="filter.paging.show" current="filter.paging.current" on-paging="Paging(current)"></dx-paging>
-              </div>
-          </div>
-      </div>
+        </div>
+        <div class="col-sm-8">
+            <div ng-show="view=='edit'">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#description">Описание</a></li>
+                    <li><a data-toggle="tab" href="#store">Хранение</a></li>
+                </ul>
+                <div class="tab-content" style="margin-top:20px">
+                    <div id="description" class="tab-pane fade in active">
+                        <dx-stack-edit edit="select"  visibility-url="false"></dx-stack-edit>
+                        <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>
+                    </div>
+                    <div id="store" class="tab-pane fade">
+                        <button class="btn btn-primary">Добавить материал</button>
+                            
+                    </div>
+                </div>
+            </div>
+            <div ng-show="view=='add'">
+                <h3 class="page-header">Добавление нового стеллажа</h3>
+                <div class="form-horizontal" role="form">
+                    <dx-field name="" width-label="col-sm-2" width-value="col-sm-10">
+                        <button class="btn btn-primary" ng-click="form.Add()">Создать</button>
+                        <button class="btn btn-default" ng-click="form.Cancel()">Отменить</button>
+                    </dx-field>
+                </div>
+                <dx-material-edit edit="form.edit"  visibility-url="false"></dx-material-edit>
+                <div class="form-horizontal" role="form">
+                    <dx-field name="" width-label="col-sm-2" width-value="col-sm-10">
+                        <button class="btn btn-primary" ng-click="form.Add()">Создать</button>
+                        <button class="btn btn-default" ng-click="form.Cancel()">Отменить</button>
+                    </dx-field>
+                </div>
+            </div>
+        </div>
 
-     <div ng-if="view=='newTest'">
-         <h1 class="page-header">
-             <button class="btn btn-primary" ng-click="Switch('diary')">
-                 <span class="glyphicon glyphicon-chevron-left"></span>
-             </button> Принять пациента
-         </h1>
-         <div ng-if="integration.id == 'inovus'"><dx-main-doctor-take-inovus-patient></dx-main-doctor-take-inovus-patient></div>
-         <div ng-if="integration.id == 'bars'"><dx-main-doctor-take-inovus-patient></dx-main-doctor-take-inovus-patient></div>
-     </div>
-  </div>
+    </div>
+</div>

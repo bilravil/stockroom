@@ -120,7 +120,6 @@ app.directive('dxStockmanMaterial', function ($timeout, $http, $rootScope) {
                 $scope.filter.paging.all++;
             };
             $scope.Add = function () {
-                $scope.form.edit = root.Clinic.Empty();
                 $scope.view = "add";
                 $scope.form.Cancel = function () { $scope.view = "edit"; };
                 $scope.form.Add = function () {
@@ -154,7 +153,7 @@ app.directive('dxStockmanStack', function ($timeout, $http, $rootScope) {
             $scope.filter = { name: "", paging: { all: 0, current: 0, show: 10 },material : {}, task : {} };
             $scope.form = {};
             $scope.Search = function () {
-                $http.post('/Db/StockTaking/Get', $scope.filter ).
+                $http.post('/Db/Record/Get', $scope.filter ).
                     then(function (result) {
                     if (result.status != undefined && result.status == 200) {
                             $scope.items = result.data.rows;

@@ -4,10 +4,7 @@ module.exports = function(engine,api) {
 
     var Stock = engine.define('stock', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
-        name: { type: Sequelize.STRING(255) },
-        address: { type: Sequelize.STRING(255) },
-        phone: { type: Sequelize.STRING(100) },
-        state: { type: Sequelize.INTEGER , defaultValue: 0 }
+        numver: { type: Sequelize.STRING(10)}
     }, {
         freezeTableName: true,
         tableName: 'stock',
@@ -80,10 +77,10 @@ module.exports = function(engine,api) {
                     query.where.$and.push({ id: { $in: param.id } });
                 }
 
-                if (param.name != undefined) {
+                if (param.number != undefined) {
                     query.where = query.where || {};
                     query.where.$and = query.where.$and || [];
-                    query.where.$and.push({ name: { $iLike: "%" + param.name + "%" }});
+                    query.where.$and.push({ number: { $iLike: "%" + param.number + "%" }});
                 }
 
 

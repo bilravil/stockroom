@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-            <li ng-class="{active:active=='stocktaking'}" ng-click="Switch('stocktaking')">
+            <li ng-class="{active:active=='record'}" ng-click="Switch('record')">
                 <a href="#">
                     Учёт
                 </a>
@@ -13,20 +13,20 @@
             </li>
             <li ng-class="{active:active=='stack'}" ng-click="Switch('stack')">
                 <a href="#">
-                    Стелажи
+                    Стеллажи
                 </a>
             </li>
-            <li ng-class="{active:active=='storage'}" ng-click="Switch('storage')">
+            <li ng-class="{active:active=='detail'}" ng-click="Switch('detail')">
                 <a href="#">
-                    Хранение
+                    Детали
                 </a>
             </li>
         </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <div ng-if="active=='stocktaking'"><dx-stockman-stocktaking state="state.stocktaking"></dx-stockman-stocktaking></div>
+        <div ng-if="active=='record'"><dx-stockman-record state="state.record"></dx-stockman-record></div>
         <div ng-if="active=='material'"><dx-stockman-material state="state.material"></dx-stockman-material></div>
         <div ng-if="active=='stack'"><dx-stockman-stack state="state.stack"></dx-stockman-stack></div>
-        <div ng-if="active=='storage'"><dx-stockman-storage state="state.storage"></dx-stockman-storage></div>
+        <div ng-if="active=='detail'"><dx-stockman-detail state="state.detail"></dx-stockman-detail></div>
     </div>
 </div>

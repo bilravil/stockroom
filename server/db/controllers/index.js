@@ -3,7 +3,7 @@ var router = require("express").Router();
 
 module.exports = function(api) {
 	const stock = require('./stock.js')(api);
-	const stocktaking = require('./stocktaking.js')(api);
+	const record = require('./record.js')(api);
 	const material = require('./material.js')(api);
 	const worker = require('./worker.js')(api);
 	const speciality = require('./speciality.js')(api);
@@ -12,7 +12,6 @@ module.exports = function(api) {
 	const task = require('./task.js')(api);
 	const work = require('./work.js')(api);
 	const score = require('./score.js')(api);
-	const salary = require('./salary.js')(api);
 	const auth = require('./auth.js')(api);
 	const role = require('./role.js')(api);
 
@@ -28,10 +27,10 @@ module.exports = function(api) {
 	router.post("/Stcok/Delete", stock.delete);
 	router.post("/Stock/Get", stock.get);
 
-	router.post("/StockTaking/Create", stocktaking.create);
-	router.post("/StockTaking/Update", stocktaking.update);
-	router.post("/StockTaking/Delete", stocktaking.delete);
-	router.post("/StockTaking/Get", stocktaking.get);
+	router.post("/Record/Create", record.create);
+	router.post("/Record/Update", record.update);
+	router.post("/Record/Delete", record.delete);
+	router.post("/Record/Get", record.get);
 
 	router.post("/Material/Create", material.create);
 	router.post("/Material/Update", material.update);
@@ -67,11 +66,6 @@ module.exports = function(api) {
 	router.post("/Score/Update", score.update);
 	router.post("/Score/Delete", score.delete);
 	router.post("/Score/Get", score.get);
-
-	router.post("/Salary/Create", salary.create);
-	router.post("/Salary/Update", salary.update);
-	router.post("/Salary/Delete", salary.delete);
-	router.post("/Salary/Get", salary.get);
 
 	return router;
 }

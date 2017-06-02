@@ -18,7 +18,7 @@ exports.Init = function(connection,api,callback) {
     db.stock = require('./models/stock.js')(engine,api);
     db.property = require('./models/property.js')(engine,api);
     db.material = require('./models/material.js')(engine,api);
-    db.stocktaking = require('./models/stocktaking.js')(engine,api);
+    db.record = require('./models/record.js')(engine,api);
     db.task = require('./models/task.js')(engine,api);
     db.score = require('./models/score.js')(engine,api);
     db.role = require('./models/role.js')(engine,api);
@@ -27,11 +27,7 @@ exports.Init = function(connection,api,callback) {
     db.speciality = require('./models/speciality.js')(engine,api);
     db.worker4speciality = require('./models/worker4speciality.js')(engine,api);
     
-    db.salary = require('./models/salary.js')(engine,api);
     db.work = require('./models/work.js')(engine,api);
-
-    db.role = require('./models/role.js')(engine,api);
-    db.auth = require('./models/auth.js')(engine,api);
     
     engine.sync().then(callback);
 }

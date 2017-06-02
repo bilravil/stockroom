@@ -2,18 +2,20 @@ module.exports = function(engine,api) {
     var Sequelize = require('sequelize');
     var db = api.GetDB();
 
-    var StockTaking = engine.define('stocktaking', {
+    var Record = engine.define('record', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
         count: { type: Sequelize.INTEGER },
         in: { type: Sequelize.INTEGER },
-        out: { type: Sequelize.INTEGER }
+        out: { type: Sequelize.INTEGER },
+        inDate: {type: Sequelize.DATEONLY},
+        outDate: {type: Sequelize.DATEONLY}
     }, {
         freezeTableName: true,
-        tableName: 'stocktaking',
+        tableName: 'record',
         classMethods: {
             FindAllSend: function(query) {
                 return new Promise( (resolve,reject) =>{
-                    StockTaking.findAndCountAll(query).then( result => {
+                    Record.findAndCountAll(query).then( result => {
                         if (result != null) resolve({ rows: result.rows, all: result.count });
                         else resolve([]);
                     });
@@ -22,17 +24,17 @@ module.exports = function(engine,api) {
 
             Create: function(param) {
                 return new Promise( (resolve,reject) =>{
-                    StockTaking.create(param).then( stocktaking=> { resolve(stocktaking); })
+                    Record.create(param).then( record=> { resolve(record); })
                       .catch(function (error){ reject(error); });
                 })
             },
 
             Update: function(param) {
                 return new Promise( (resolve,reject) =>{
-                    StockTaking.findOne({ where : { id : param.id}}).then(stocktaking=> {
-                        if(stocktaking !== null){
-                            stocktaking.update(param).
-                            then(function () { resolve(stocktaking.get()); }).
+                    Record.findOne({ where : { id : param.id}}).then(record=> {
+                        if(record !== null){
+                            record.update(param).
+                            then(function () { resolve(record.get()); }).
                             error(function (error) { reject(error); });
                         }else  reject( { code : 404 , msg : "" });                      
                       })
@@ -44,11 +46,11 @@ module.exports = function(engine,api) {
 
             Delete: function(param) {
                 return new Promise( (resolve,reject) =>{
-                    StockTaking.findOne({ where : { id : param.id}}).then( stocktaking=> {
-                        if(stocktaking !== null){
+                    Record.findOne({ where : { id : param.id}}).then( record=> {
+                        if(record !== null){
                             param.state = 1;
-                            stocktaking.update(param).
-                            then(function () { resolve(stocktaking.get()); }).
+                            record.update(param).
+                            then(function () { resolve(record.get()); }).
                             error(function (error) { reject(error); });
                         }else  reject( { code : 404 , msg : "" });                      
                       })
@@ -62,8 +64,8 @@ module.exports = function(engine,api) {
 
                 if (param.id != undefined && !Array.isArray(param.id)) {
                     return new Promise( (resolve,reject) =>{
-                        StockTaking.findOne({ where: { id: param.id } }).then( stocktaking => { 
-                            resolve(stocktaking ? stocktaking.get() : {});
+                        Record.findOne({ where: { id: param.id } }).then( record => { 
+                            resolve(record ? record.get() : {});
                             return;
                         })              
                     });
@@ -79,16 +81,17 @@ module.exports = function(engine,api) {
                     query.where.$and.push({ id: { $in: param.id } });
                 }
 
-                if (param.stock != undefined) {
-                    query.include = query.include || [];
-                    var q = { model: db.stock, as: 'stock' }
-                    if (param.stock.id != undefined) {
-                        q.where = q.where || {}; q.where.$and = q.where.$and || [];
-                        q.where.$and.push({ id: param.stock.id });
 
-                    }
-                    query.include.push(q);
-                }
+                // if (param.stock != undefined) {
+                //     query.include = query.include || [];
+                //     var q = { model: db.stock, as: 'stock' }
+                //     if (param.stock.id != undefined) {
+                //         q.where = q.where || {}; q.where.$and = q.where.$and || [];
+                //         q.where.$and.push({ id: param.stock.id });
+
+                //     }
+                //     query.include.push(q);
+                // }
 
                 if (param.material != undefined) {
                     query.include = query.include || [];
@@ -101,14 +104,24 @@ module.exports = function(engine,api) {
                     query.include.push(q);
                 }
 
-                return StockTaking.FindAllSend(query);
+                // if (param.task != undefined) {
+                //     query.include = query.include || [];
+                //     var q = { model: db.task, as: 'task' }
+                //     if (param.task.id != undefined) {
+                //         q.where = q.where || {}; q.where.$and = q.where.$and || [];
+                //         q.where.$and.push({ id: param.task.id });
+
+                //     }
+                //     query.include.push(q);
+                // }
+
+                return Record.FindAllSend(query);
 
             }
         }
     });   
 
-    StockTaking.belongsTo(db.stock, { foreignKey: 'idStock' });
-    StockTaking.belongsTo(db.material, { foreignKey: 'idMaterial' });
+    Record.belongsTo(db.material, { foreignKey: 'idMaterial' });
     
-    return StockTaking;
+    return Record;
 }

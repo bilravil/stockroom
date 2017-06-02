@@ -109,6 +109,6 @@ module.exports = function(engine,api) {
     });   
 
     Material.belongsTo(db.property, { foreignKey: 'idProperty' });
-    
+    Material.belongsTo(db.stock, { foreignKey: 'idStock' });
     return Material;
 }

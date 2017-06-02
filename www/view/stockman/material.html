@@ -27,13 +27,13 @@
             <div ng-show="view=='edit'">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#description">Описание</a></li>
-                    <li><a data-toggle="tab" href="#score">Учёт</a></li>
+                    <li><a data-toggle="tab" href="#property">Свойства</a></li>
                 </ul>
                 <div class="tab-content" style="margin-top:20px">
                     <div id="description" class="tab-pane fade in active"><dx-material-edit edit="select"  visibility-url="false"></dx-material-edit>
                         <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>
                     </div>
-                    <div id="score" class="tab-pane fade"><dx-score-edit uuid="select.uuid"></dx-score-edit></div>
+                    <div id="property" class="tab-pane fade"><dx-property-edit uuid="select.uuid"></dx-property-edit></div>
                 </div>
             </div>
             <div ng-show="view=='add'">

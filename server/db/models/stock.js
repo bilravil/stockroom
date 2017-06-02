@@ -4,7 +4,7 @@ module.exports = function(engine,api) {
 
     var Stock = engine.define('stock', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
-        numver: { type: Sequelize.STRING(10)}
+        number: { type: Sequelize.STRING(10)}
     }, {
         freezeTableName: true,
         tableName: 'stock',
@@ -67,7 +67,7 @@ module.exports = function(engine,api) {
                     });
                 }
 
-                var query = { raw: true, order: [["first", "ASC"]] };
+                var query = { raw: true, order: [["id", "ASC"]] };
                 if (param.paging != undefined) { query.offset = param.paging.current;
                     query.limit = param.paging.show; }
 

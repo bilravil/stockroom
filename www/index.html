@@ -45,8 +45,8 @@
     </nav>
     <div class="container-fluid">
         <dx-main-admin  ng-if="auth.type=='admin'" state="state.admin"></dx-main-admin>
-        <dx-main-stockman  state="state.stockman"></dx-main-stockman>
-        <dx-main-brigadier ng-if="auth.type=='brigadier'" state="state.brigadier"></dx-main-brigadier>
+        <dx-main-stockman ng-if="auth.type=='stockman'" state="state.stockman"></dx-main-stockman>
+        <dx-main-brigadier  state="state.brigadier"></dx-main-brigadier>
     </div>
 
 </body>

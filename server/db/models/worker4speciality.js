@@ -50,7 +50,7 @@ module.exports = function(engine,api) {
                     });
                 }
 
-                var query = { raw: true, order: [["first", "ASC"]] };
+                var query = { raw: true, order: [["id", "ASC"]] };
                 if (param.paging != undefined) { query.offset = param.paging.current;
                     query.limit = param.paging.show; }
 

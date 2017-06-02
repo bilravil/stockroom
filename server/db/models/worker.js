@@ -8,6 +8,7 @@ module.exports = function(engine,api) {
         first: { type: Sequelize.STRING(255), validate : { is: ["^[a-z]+$",'i'] } },
         middle: { type: Sequelize.STRING(255), validate : { is: ["^[a-z]+$",'i'] } },     
         persNum: { type: Sequelize.INTEGER },
+        speciality: { type: Sequelize.STRING(255) },
         state : { type: Sequelize.INTEGER,defaultValue : 0 },
     }, {
         freezeTableName: true,
@@ -71,7 +72,7 @@ module.exports = function(engine,api) {
                     });
                 }
 
-                var query = { raw: true, order: [["first", "ASC"]] };
+                var query = { raw: true, order: [["id", "ASC"]] };
                 if (param.paging != undefined) { query.offset = param.paging.current;
                     query.limit = param.paging.show; }
 
@@ -87,7 +88,7 @@ module.exports = function(engine,api) {
                     query.where.$and.push({ persNum: { $eq: param.persNum } });
                 }
 
-                if (param.last != undefined) {
+                if (param.first != undefined) {
                     query.where = query.where || {};
                     query.where.$and = query.where.$and || [];
                     query.where.$and.push({ $or: [{ first: { $eq: null } }, { first: { $iLike: "%" + param.first + "%" } }] });

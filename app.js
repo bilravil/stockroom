@@ -13,7 +13,7 @@ const config = require('./config.json');
 const app = express();
 const http = require('http').Server(app);
 const fs = require('fs');
-
+const multiparty = require('multiparty');
 const db = require('./server/db/index.js');
 
 api = {
@@ -66,6 +66,20 @@ function Init(callback){
 
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
+
+    app.post('/upload', jsonParser, function(req, res) {
+        if (!req.body) return res.send({ success: false, message: "Invalid arguments" });
+        if (req.method === 'POST') {
+            var form = new multiparty.Form();
+            form.parse(req, function(err, fields, files) {
+                console.log(files['data'][0]);
+                //fs.writeFile('logPath', files['data'].headers, function(err) {})
+                res.send({ success: true});
+            });
+            return;
+        }
+    });
 
 	http.listen(config.port, function() {
 		callback(`Server started on port ${config.port}`);

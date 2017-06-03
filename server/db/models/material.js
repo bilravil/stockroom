@@ -23,7 +23,7 @@ module.exports = function(engine,api) {
             Create: function(param) {
                 return new Promise( (resolve,reject) =>{
                     Material.create(param).then( material=> { resolve(material); })
-                      .catch(function (error){ reject(error); });
+                    .catch(function (error){ reject(error); });
                 })
             },
 
@@ -35,10 +35,10 @@ module.exports = function(engine,api) {
                             then(function () { resolve(material.get()); }).
                             error(function (error) { reject(error); });
                         }else  reject( { code : 404 , msg : "" });                      
-                      })
-                      .catch(function (error){
+                    })
+                    .catch(function (error){
                         reject({ code : 500 , msg : error });
-                      });
+                    });
                 })
             },
 
@@ -51,10 +51,10 @@ module.exports = function(engine,api) {
                             then(function () { resolve(material.get()); }).
                             error(function (error) { reject(error); });
                         }else  reject( { code : 404 , msg : "" });                      
-                      })
-                      .catch(function (error){
+                    })
+                    .catch(function (error){
                         reject({ code : 500 , msg : error });
-                      });
+                    });
                 })
             },
 
@@ -73,23 +73,23 @@ module.exports = function(engine,api) {
                 if (param.paging != undefined) { query.offset = param.paging.current;
                     query.limit = param.paging.show; }
 
-                if (param.id != undefined && Array.isArray(param.id)) {
-                    query.where = query.where || {};
-                    query.where.$and = query.where.$and || [];
-                    query.where.$and.push({ id: { $in: param.id } });
-                }
+                    if (param.id != undefined && Array.isArray(param.id)) {
+                        query.where = query.where || {};
+                        query.where.$and = query.where.$and || [];
+                        query.where.$and.push({ id: { $in: param.id } });
+                    }
 
-                if (param.name != undefined) {
-                    query.where = query.where || {};
-                    query.where.$and = query.where.$and || [];
-                    query.where.$and.push({ name: { $iLike: "%" + param.name + "%" }});
-                }
+                    if (param.name != undefined) {
+                        query.where = query.where || {};
+                        query.where.$and = query.where.$and || [];
+                        query.where.$and.push({ name: { $iLike: "%" + param.name + "%" }});
+                    }
 
-                if (param.type != undefined) {
-                    query.where = query.where || {};
-                    query.where.$and = query.where.$and || [];
-                    query.where.$and.push({ type: { $iLike: "%" + param.type + "%" }});
-                }
+                    if (param.type != undefined) {
+                        query.where = query.where || {};
+                        query.where.$and = query.where.$and || [];
+                        query.where.$and.push({ type: { $iLike: "%" + param.type + "%" }});
+                    }
 
                 // if (param.property != undefined) {
                 //     query.include = query.include || [];
@@ -108,7 +108,7 @@ module.exports = function(engine,api) {
         }
     });   
 
-    Material.belongsTo(db.property, { foreignKey: 'idProperty' });
-    Material.belongsTo(db.stock, { foreignKey: 'idStock' });
-    return Material;
+Material.belongsTo(db.property, { foreignKey: 'idProperty' });
+Material.belongsTo(db.stock, { foreignKey: 'idStock' });
+return Material;
 }

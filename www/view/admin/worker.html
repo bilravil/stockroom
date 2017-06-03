@@ -1,9 +1,8 @@
 <div>
-    <h1 class="page-header">Материалы</h1>
+    <h1 class="page-header">Рабочие</h1>
     <div class="form-inline">
         <button type="button" class="btn btn-primary" ng-click="Add()">Новый</button>
         <input type="text" class="form-control" placeholder="Наименование" ng-model="filter.name" />
-        
         <button type="button" class="btn pull-right"><span class="glyphicon glyphicon-refresh " aria-hidden="true"></span></button>
     </div>
     <div class="row" style="margin-top:20px">
@@ -13,8 +12,8 @@
                     <div class="btn-group pull-right">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="Delete(item,$event)" style="cursor:pointer;font-size: 20px;" title="Удалить"></span>
                     </div>
-                    <h4 class="list-group-item-heading">{{item.name}}</h4>
-                    <p class="list-group-item-text">{{item.type}}</p>
+                    <h4 class="list-group-item-heading">{{item.first}} {{item.middle}} {{item.last}}</h4>
+                    <p class="list-group-item-text">{{item.persNum}}</p>
                 </a>
             </div>
             <div class="row">
@@ -27,34 +26,24 @@
         <div class="col-sm-8">
             <div ng-show="view=='edit'">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#description">Описание</a></li>
-                    <li><a data-toggle="tab" href="#property">Свойства</a></li>
-                    <li><a data-toggle="tab" href="#record">Учёт</a></li>
+                    <li class="active"><a data-toggle="tab" href="#edit">Редактирование</a></li>
                 </ul>
                 <div class="tab-content" style="margin-top:20px">
-                    <div id="description" class="tab-pane fade in active">
-                        <dx-material-edit edit="select"  visibility-url="false"></dx-material-edit>
-                        <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>
-                    </div>
-                    <div id="property" class="tab-pane fade">
-                        <dx-property-edit uuid="select.uuid"></dx-property-edit>
-                        <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>    
-                    </div>
-                    <div id="record" class="tab-pane fade">
-                        <dx-record-edit uuid="select.uuid"></dx-record-edit>
+                    <div id="edit" class="tab-pane fade in active">
+                        <dx-worker-edit edit="select"  visibility-url="false"></dx-worker-edit>
                         <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>
                     </div>
                 </div>
             </div>
             <div ng-show="view=='add'">
-                <h3 class="page-header">Добавление нового материала</h3>
+                <h3 class="page-header">Добавление нового рабочего</h3>
                 <div class="form-horizontal" role="form">
                     <dx-field name="" width-label="col-sm-2" width-value="col-sm-10">
                         <button class="btn btn-primary" ng-click="form.Add()">Создать</button>
                         <button class="btn btn-default" ng-click="form.Cancel()">Отменить</button>
                     </dx-field>
                 </div>
-                <dx-material-edit edit="form.edit"  visibility-url="false"></dx-material-edit>
+                <dx-worker-edit edit="form.edit"  visibility-url="false"></dx-worker-edit>
                 <div class="form-horizontal" role="form">
                     <dx-field name="" width-label="col-sm-2" width-value="col-sm-10">
                         <button class="btn btn-primary" ng-click="form.Add()">Создать</button>

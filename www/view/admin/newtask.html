@@ -1,0 +1,16 @@
+<div>
+    <div class="modal-header">        
+        <button type="button" class="close" data-dismiss="modal" ng-click = "Close()">&times;</button>
+        <h3 class="modal-title">Добавление новой задачи</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal" role="form">
+            <input type="text" class="form-control" style="margin-bottom: 20px" placeholder="№ задачи" ng-model="edit.number">
+            <input type="text" class="form-control" style="margin-bottom: 20px" placeholder="Наименование работ" ng-model="edit.name">
+            <input type="date" class="form-control" style="margin-bottom: 20px" placeholder="Дата начала" ng-model="edit.date">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="Add()">Добавить задачу</button>
+    </div>
+</div>

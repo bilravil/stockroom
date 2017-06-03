@@ -6,36 +6,47 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ВКР</title>
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./bower_components/angular/angular.min.js"></script>
     <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/bower_components/angular-ui-mask/dist/mask.js"></script>
+    <script src="./bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    
     <link href="./css/app.css" rel="stylesheet" />
     <script>
-        var app = angular.module('App', []);
+        var app = angular.module('App', ['ngSanitize', 'ui.bootstrap','ui.mask']);
+
     </script>
     <script src="/view/admin/index.js"></script>
     <script src="/view/brigadier/index.js"></script>
     <script src="/view/stockman/index.js"></script>
     <script src="/index.js"></script>
     <script>
-        app.controller('IndexCtrl', function($scope, $http, $timeout, $element, $rootScope, $compile) {
+        app.controller('IndexCtrl', function($scope, $http, $timeout, $element, $rootScope, $compile,$uibModal) {
             $http.post('/Db/Login/GetAuth', undefined ).
+            then(function (result) {
+               $scope.auth = $rootScope.rights = result.data.rows[0].rights;
+
+
+               $scope.Logout = function() {
+                $http.post('/Db/Logout', undefined ).
                 then(function (result) {
-                     $scope.auth = $rootScope.rights = result.data.rows[0].rights;
-                     
-
-                     $scope.Logout = function() {
-                        $http.post('/Db/Logout', undefined ).
-                            then(function (result) {
-                                window.location.href = '/';
-                            });
-                        
-
-                    }
-
+                    window.location.href = '/';
                 });
+
+
+            }
+
+            $rootScope.modalDialog = function(param, callbackClose) {
+                return modalDialog($uibModal, param, callbackClose || function() {});
+            };
+
+        });
         })      
     </script>
+    <script src="/js/dx.js"></script>
 </head>
 
 <body ng-app="App" ng-controller="IndexCtrl">

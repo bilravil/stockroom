@@ -37,18 +37,38 @@ exports.Run = function(connection,api, callback) {
     var router = require('./controllers/index.js')(api);
     exports.Init(connection,api,function () {
 
-        function initRole(callback){
+        function initAdminRole(callback){
+            let param = {name:"admin",rights:{"admin":true}}
+            db.role.Create(param).then(res=>callback(res.id));
+        }
+
+        function initAdminAuth(idRole){
+            let param = {login:"admin",password:"admin",idRole:idRole}
+            db.auth.Create(param).then(callback(true));
+        }
+        function initBrigRole(callback){
+            let param = {name:"brigadier",rights:{"brigadier":true}}
+            db.role.Create(param).then(res=>callback(res.id));
+        }
+
+        function initBrigAuth(idRole){
+            let param = {login:"brig",password:"brig",idRole:idRole}
+            db.auth.Create(param).then(callback(true));
+        }
+        function initStockmanRole(callback){
             let param = {name:"stockman",rights:{"stockman":true}}
             db.role.Create(param).then(res=>callback(res.id));
         }
 
-        function initAuth(idRole){
-            let param = {login:"stock",password:"stock",idRole:idRole}
+        function initStockmanAuth(idRole){
+            let param = {login:"stockman",password:"stockman",idRole:idRole}
             db.auth.Create(param).then(callback(true));
         }
 
-        //initRole(res=>initAuth(res));
 
+        // initAdminRole(res=>initAdminAuth(res));
+        // initBrigRole(res=>initBrigAuth(res));
+        // initStockmanRole(res=>initStockmanAuth(res));
         
         global.api.GetExpress().use('/Db',router);
     });

@@ -8,10 +8,11 @@ module.exports = function(engine,api) {
         number: { type: Sequelize.STRING(30) },
         detailCount: { type: Sequelize.INTEGER  },
         totalTime: { type: Sequelize.INTEGER  },
-        sakary : {type: Sequelize.INTEGER },
+        salary : {type: Sequelize.INTEGER },
         materialCostPrice: { type: Sequelize.INTEGER  },
         startDate: { type: Sequelize.DATEONLY  },
         endDate: { type: Sequelize.DATEONLY  },
+        file:{ type: Sequelize.STRING(100) },
         status: { type: Sequelize.ENUM('registered','finished') },
     }, {
         freezeTableName: true,

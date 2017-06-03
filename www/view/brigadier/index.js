@@ -94,15 +94,7 @@ app.directive('dxBrigadierWorker', function ($timeout, $http, $rootScope) {
                 $scope.form.Cancel = function () { $scope.view = "edit"; };
                 $scope.form.Add = function () {
 
-                    root.Clinic.Put({
-                        $http: $http, data: $scope.form.edit,
-                        success: function (result) {
-                            $scope.items.splice(0, 0, result);
-                            $scope.Select(result);
-                            $scope.filter.paging.all++;
-                        },
-                        error: function (result) { }
-                    });
+                    console.log($scope);
                 };
                 $scope.view = "add";
             }
@@ -130,31 +122,17 @@ app.directive('dxWorkerEdit', function($timeout, $http) {
             var prev = "";
             $scope.$watch("edit", function(value) {
                 if (value == undefined) return;
-                //$timeout(function () {
-                    $scope.edit.additional = $scope.edit.additional || {};
-                    $scope.edit.additional.phones = $scope.edit.additional.phones || [{ type: "main" }];
-                    $scope.edit.additional.addresses = $scope.edit.additional.addresses || [{ type: "main" }];
-                    $scope.edit.organization = $scope.edit.organization || { lid: 0, children: [] };
-                    $scope.edit.additional.population = $scope.edit.additional.population || "";
-                    $scope.edit.additional.devices = $scope.edit.additional.devices || [{type:"ECG"}];
+                $timeout(function () {
+                    $scope.edit.first = $scope.edit.first || {};
+                    console.log($scope.edit.first);
                     if (value) prev = JSON.stringify($scope.edit);
                     else prev = "";
-                //}, 1000)
+                }, 1000)
 
             });
 
             function Save() {
                 delete $scope.error;
-                root.Clinic.Put({
-                    $http: $http,
-                    data: $scope.edit,
-                    success: function(result) { if (!$scope.edit.uuid) $scope.edit.uuid = result.uuid;
-                        prev = JSON.stringify($scope.edit); },
-                        error: function(result) {
-                            prev = JSON.stringify($scope.edit);
-                            $scope.error = result.message;
-                        }
-                    });
             }
             var timerId = setInterval(function() { if ($scope.edit && $scope.edit.uuid && prev.length > 0 && prev != JSON.stringify($scope.edit)) Save();}, 500);
             $scope.$on('$destroy', function() {

@@ -3,7 +3,6 @@
     <div class="form-inline">
         <button type="button" class="btn btn-primary" ng-click="Add()">Новый</button>
         <input type="text" class="form-control" placeholder="Наименование" ng-model="filter.name" />
-        
         <button type="button" class="btn pull-right"><span class="glyphicon glyphicon-refresh " aria-hidden="true"></span></button>
     </div>
     <div class="row" style="margin-top:20px">
@@ -37,12 +36,12 @@
                         <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>
                     </div>
                     <div id="property" class="tab-pane fade">
-                        <dx-property-edit uuid="select.uuid"></dx-property-edit>
-                        <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>    
+                        <dx-property-edit select="select" id="select.id"></dx-property-edit>
+                           
                     </div>
                     <div id="record" class="tab-pane fade">
-                        <dx-record-edit uuid="select.uuid"></dx-record-edit>
-                        <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>
+                        <dx-record-edit select="select" id="select.id"></dx-record-edit>
+
                     </div>
                 </div>
             </div>

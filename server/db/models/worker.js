@@ -4,9 +4,9 @@ module.exports = function(engine,api) {
 
     var Worker = engine.define('worker', {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
-        last: { type: Sequelize.STRING(255), validate : { is: ["^[a-z]+$",'i'] } },
-        first: { type: Sequelize.STRING(255), validate : { is: ["^[a-z]+$",'i'] } },
-        middle: { type: Sequelize.STRING(255), validate : { is: ["^[a-z]+$",'i'] } },     
+        last: { type: Sequelize.STRING(255)  },
+        first: { type: Sequelize.STRING(255)},
+        middle: { type: Sequelize.STRING(255) },     
         persNum: { type: Sequelize.INTEGER },
         speciality: { type: Sequelize.STRING(255) },
         state : { type: Sequelize.INTEGER,defaultValue : 0 },

@@ -61,7 +61,6 @@ app.directive('dxBrigadierWorker', function ($timeout, $http, $rootScope) {
                 then(function (result) {
                     if (result.status != undefined && result.status == 200) {
                         $scope.items = result.data.rows;
-                        console.log($scope.items)
                     }
                 });
             };
@@ -70,15 +69,10 @@ app.directive('dxBrigadierWorker', function ($timeout, $http, $rootScope) {
             };
             $scope.Select = function (item) {
                 $scope.select = item;
-                if ($scope.select.uuid) {
+                if ($scope.select.id) {
                     $scope.view = "edit";
                 }
             };
-            $scope.$watch("state", function (value) {
-
-                if (value == undefined) return;
-                $scope.filter.name=$scope.state.name ;
-            });
             $scope.$watch("filter.name", function (value) {
                 delete $scope.filter.first; delete $scope.filter.middle; delete $scope.filter.last;
                 if (value == undefined ) { return $scope.Search(); }
@@ -90,13 +84,19 @@ app.directive('dxBrigadierWorker', function ($timeout, $http, $rootScope) {
             });
             $scope.Add = function () {
 
+                $scope.form.edit = function () { return { first: "", middle: "", last: "", persNum: "" , speciality : ""}; }();
                 $scope.view = "add";
                 $scope.form.Cancel = function () { $scope.view = "edit"; };
                 $scope.form.Add = function () {
-
-                    console.log($scope);
+                    $http.post('/Db/Worker/Create', $scope.form.edit  ).
+                    then(function (result,status) {
+                        $scope.Search();
+                        $scope.view = "edit";
+                        return;
+                    },function(err){console.log(err)})
+                    
                 };
-                $scope.view = "add";
+                
             }
         }
     }
@@ -107,40 +107,16 @@ app.directive('dxWorkerEdit', function($timeout, $http) {
         restrict: 'E',
         replace: true,
         scope: {
-            edit: '=',
-            visibilityUrl: "="
+            edit: '='
         },
         template: '<div class="form-horizontal" role="form">' +
         '<dx-field name="Фамилия" width-label="col-sm-2" width-value="col-sm-10"><input type="text" class="form-control" ng-model="edit.first" /></dx-field>' +
         '<dx-field name="Имя" width-label="col-sm-2" width-value="col-sm-10" ><input type="text" class="form-control" ng-model="edit.middle" /></dx-field>' +
         '<dx-field name="Отчество" width-label="col-sm-2" width-value="col-sm-10"><input type="text" class="form-control" ng-model="edit.last" /></dx-field>' +
-        '<dx-field name="Табельный номер" width-label="col-sm-2" width-value="col-sm-10"><input type="text" class="form-control" ng-model="edit.persNum" /></dx-field>' +
+        '<dx-field name="Табельный номер" width-label="col-sm-2" width-value="col-sm-10"><input type="number" class="form-control" ng-model="edit.persNum" /></dx-field>' +
         '<dx-field name="Специальность" width-label="col-sm-2" width-value="col-sm-10"><input type="text" class="form-control" ng-model="edit.speciality" /></dx-field>' +
         '</div>',
         link: function($scope) {
-
-            var prev = "";
-            $scope.$watch("edit", function(value) {
-                if (value == undefined) return;
-                $timeout(function () {
-                    $scope.edit.first = $scope.edit.first || {};
-                    console.log($scope.edit.first);
-                    if (value) prev = JSON.stringify($scope.edit);
-                    else prev = "";
-                }, 1000)
-
-            });
-
-            function Save() {
-                delete $scope.error;
-            }
-            var timerId = setInterval(function() { if ($scope.edit && $scope.edit.uuid && prev.length > 0 && prev != JSON.stringify($scope.edit)) Save();}, 500);
-            $scope.$on('$destroy', function() {
-                clearInterval(timerId);
-            });
-
-
-
         }
     }
 });

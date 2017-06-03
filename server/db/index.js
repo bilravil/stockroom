@@ -17,6 +17,7 @@ exports.Init = function(connection,api,callback) {
 
     db.stock = require('./models/stock.js')(engine,api);
     db.property = require('./models/property.js')(engine,api);
+    
     db.material = require('./models/material.js')(engine,api);
     db.record = require('./models/record.js')(engine,api);
     db.task = require('./models/task.js')(engine,api);

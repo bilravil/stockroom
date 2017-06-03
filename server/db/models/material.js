@@ -6,6 +6,8 @@ module.exports = function(engine,api) {
         id: { type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV1 },
         name: { type: Sequelize.STRING(255) },
         type: { type: Sequelize.STRING(255) },
+        count:{ type: Sequelize.INTEGER },
+        price:{ type: Sequelize.INTEGER },
         state: { type: Sequelize.INTEGER , defaultValue: 0 }
     }, {
         freezeTableName: true,
@@ -91,16 +93,27 @@ module.exports = function(engine,api) {
                         query.where.$and.push({ type: { $iLike: "%" + param.type + "%" }});
                     }
 
-                // if (param.property != undefined) {
-                //     query.include = query.include || [];
-                //     var q = { model: db.property, as: 'property' }
-                //     if (param.property.id != undefined) {
-                //         q.where = q.where || {}; q.where.$and = q.where.$and || [];
-                //         q.where.$and.push({ id: param.property.id });
+                    if (param.property != undefined) {
+                        query.include = query.include || [];
+                        var q = { model: db.property , as:'property'}
+                        if (param.property.id != undefined) {
+                            q.where = q.where || {}; q.where.$and = q.where.$and || [];
+                            q.where.$and.push({ id: param.property.id});
 
-                //     }
-                //     query.include.push(q);
-                // }
+                        }
+                        query.include.push(q);
+                    }
+
+                    if (param.stock != undefined) {
+                        query.include = query.include || [];
+                        var q = { model: db.stock , as:'stock'}
+                        if (param.stock.id != undefined) {
+                            q.where = q.where || {}; q.where.$and = q.where.$and || [];
+                            q.where.$and.push({ id: param.stock.id});
+
+                        }
+                        query.include.push(q);
+                    }
 
                 return Material.FindAllSend(query);
 

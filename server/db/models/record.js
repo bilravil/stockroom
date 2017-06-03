@@ -82,17 +82,6 @@ module.exports = function(engine,api) {
                 }
 
 
-                // if (param.stock != undefined) {
-                //     query.include = query.include || [];
-                //     var q = { model: db.stock, as: 'stock' }
-                //     if (param.stock.id != undefined) {
-                //         q.where = q.where || {}; q.where.$and = q.where.$and || [];
-                //         q.where.$and.push({ id: param.stock.id });
-
-                //     }
-                //     query.include.push(q);
-                // }
-
                 if (param.material != undefined) {
                     query.include = query.include || [];
                     var q = { model: db.material, as: 'material' }
@@ -104,16 +93,6 @@ module.exports = function(engine,api) {
                     query.include.push(q);
                 }
 
-                // if (param.task != undefined) {
-                //     query.include = query.include || [];
-                //     var q = { model: db.task, as: 'task' }
-                //     if (param.task.id != undefined) {
-                //         q.where = q.where || {}; q.where.$and = q.where.$and || [];
-                //         q.where.$and.push({ id: param.task.id });
-
-                //     }
-                //     query.include.push(q);
-                // }
 
                 return Record.FindAllSend(query);
 

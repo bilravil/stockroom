@@ -31,10 +31,12 @@ app.directive('dxStockmanRecord', function ($timeout, $http, $rootScope) {
                 $http.post('/Db/Record/Get', $scope.filter ).
                 then(function (result) {
                     if (result.status != undefined && result.status == 200) {
+                        console.log(result.data.rows)
                         $scope.items = result.data.rows;
                     }
                 });
             };
+            $scope.Search();
             $scope.Paging = function (current) {
                 $scope.Search();
             };
@@ -44,36 +46,6 @@ app.directive('dxStockmanRecord', function ($timeout, $http, $rootScope) {
                     $scope.view = "edit";
                 }
             };
-            $scope.$watch("state", function (value) {
-
-                if (value == undefined) return;
-                $scope.filter.name=$scope.state.name ;
-            });
-            $scope.$watch("filter.name", function (item) {
-                $scope.Search();
-            });
-            $scope.onClinicCreated = function (clinic) {
-                $scope.items.splice(0, 0, clinic);
-                $scope.filter.paging.all++;
-            };
-            $scope.Add = function () {
-                $scope.form.edit = root.Clinic.Empty();
-                $scope.view = "add";
-                $scope.form.Cancel = function () { $scope.view = "edit"; };
-                $scope.form.Add = function () {
-
-                    root.Clinic.Put({
-                        $http: $http, data: $scope.form.edit,
-                        success: function (result) {
-                            $scope.items.splice(0, 0, result);
-                            $scope.Select(result);
-                            $scope.filter.paging.all++;
-                        },
-                        error: function (result) { }
-                    });
-                };
-                $scope.view = "add";
-            }
         }
     }
 });
@@ -180,6 +152,25 @@ app.directive('dxStockmanStack', function ($timeout, $http, $rootScope) {
                    });
                 };
                 //
+            }
+
+            $scope.AddMaterial = function(item){
+                if(item === undefined) return;
+                $scope.edit = function () { return { idMaterial: "" }; }();
+                $rootScope.modalDialog({ 
+                    edit: {}, 
+                    template: "<dx-add-material></dx-add-material>" }, function (data) {
+                        if(data === undefined) return; 
+                        let req = {id : data.idMaterial, count : data.count, idStock : item.id};
+                        console.log(req);
+                        $http.post('/Db/Material/Update',  req).
+                        then(function (result) {
+                            //$scope.Search();
+                            //$scope.view = "edit";
+                            return;
+                        });
+                        //$scope.Search();
+                });
             }
         }
     }
@@ -419,6 +410,30 @@ app.directive('dxStockList', function ($timeout, $http,$rootScope) {
                         $scope.stockId = result.data.rows;
                     }
                 });
+        }
+    }
+});
+
+
+app.directive('dxAddMaterial', function ($timeout, $http, $rootScope) {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+
+        },
+        templateUrl:"view/stockman/addmaterial.html",
+
+        link: function ($scope, $element) {
+            $scope.edit = $scope.$parent.param.edit;
+            $scope.Close = function () {
+                $scope.$parent.close();
+            }  
+
+            $scope.Add = function(){
+                $scope.$parent.ok($scope.edit); 
+                $scope.$parent.close();
+            }  
         }
     }
 });

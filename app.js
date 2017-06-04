@@ -73,9 +73,10 @@ function Init(callback){
         if (req.method === 'POST') {
             var form = new multiparty.Form();
             form.parse(req, function(err, fields, files) {
-                let pth = files['data'][0].path
-                console.log(pth);
-                res.send({ success: true , path : pth});
+
+                let oldPath = files['data'][0].path;
+
+                res.send({ success: true , path : oldPath});
             });
             return;
         }

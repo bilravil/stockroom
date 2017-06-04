@@ -8,7 +8,7 @@
     <div class="row" style="margin-top:20px">
         <div class="col-sm-4">
             <div class="list-group" style="margin-top:20px;font-size:x-small">
-                <a href="#" class="list-group-item" ng-class="{active:select.uuid==item.uuid}" ng-repeat="item in items" ng-click="Select(item)">
+                <a href="#" class="list-group-item" ng-class="{active:select.id==item.id}" ng-repeat="item in items" ng-click="Select(item)">
                     <div class="btn-group pull-right">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="Delete(item,$event)" style="cursor:pointer;font-size: 20px;" title="Удалить"></span>
                     </div>
@@ -42,7 +42,7 @@
                         <button class="btn btn-default" ng-click="form.Cancel()">Отменить</button>
                     </dx-field>
                 </div>
-                <dx-task-edit edit="form.edit"  visibility-url="false"></dx-task-edit>
+                <dx-task-edit edit="form.edit"></dx-task-edit>
                 <div class="form-horizontal" role="form">
                     <dx-field name="" width-label="col-sm-2" width-value="col-sm-10">
                         <button class="btn btn-primary" ng-click="form.Add()">Создать</button>

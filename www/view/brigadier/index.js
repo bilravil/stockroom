@@ -30,16 +30,25 @@ app.directive('dxBrigadierTask', function ($timeout, $http, $rootScope) {
             $scope.Switch = function (active) {
                 $timeout(function () { $scope.active = active; });
             };
+            $scope.filter = { name: "", paging: { all: 0, current: 0, show: 10 }, material : {} };
+            $scope.Search = function () {
+                $http.post('/Db/Task/Get', $scope.filter ).
+                then(function (result) {
+                    if (result.status != undefined && result.status == 200) {
+                        $scope.items = result.data.rows;
+                        console.log($scope.items);
+                    }
+                });
+            };
 
-            $scope.NewTask = function(){
-                $rootScope.modalDialog({ 
-                    edit: {}, 
-                    template: "<dx-create-new-task></dx-create-new-task>" }, function (data) {
-                        if(data === undefined) return; 
-                        
-                        //$scope.Search();
-                    });
-            }
+            $scope.OpenFile = function (url) {
+                url = url.replace(/\\/g, '/');
+                console.log(url);
+                window.location = "file:///"+url;
+                
+            };
+
+            $scope.Search();
         }
     }
 });

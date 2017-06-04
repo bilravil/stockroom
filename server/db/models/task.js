@@ -88,6 +88,18 @@ module.exports = function(engine,api) {
                     query.where.$and.push({ number: { $iLike: "%" + param.number + "%" }});
                 }
 
+                
+                if (param.material != undefined) {
+                    query.include = query.include || [];
+                    var q = { model: db.material, as: 'material' }
+                    if (param.material.id != undefined) {
+                        q.where = q.where || {}; q.where.$and = q.where.$and || [];
+                        q.where.$and.push({ id: param.material.id });
+
+                    }
+                    query.include.push(q);
+                }
+
                 return Task.FindAllSend(query);
 
             }

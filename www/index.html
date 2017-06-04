@@ -4,7 +4,7 @@
 
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ВКР</title>
+    <title>Гранд+</title>
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
 
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -13,10 +13,11 @@
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="/bower_components/angular-ui-mask/dist/mask.js"></script>
     <script src="./bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="./bower_components/angular-bootstrap-file-field/dist/angular-bootstrap-file-field.min.js"></script>
     
     <link href="./css/app.css" rel="stylesheet" />
     <script>
-        var app = angular.module('App', ['ngSanitize', 'ui.bootstrap','ui.mask']);
+        var app = angular.module('App', ['ngSanitize', 'ui.bootstrap','ui.mask','bootstrap.fileField']);
 
     </script>
     <script src="/view/admin/index.js"></script>
@@ -59,8 +60,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Логотип</a>
-                <a class="navbar-brand" href="#" style="margin-top:-10px" ng-bind-html="config.title"></a>
+                <a class="navbar-brand" href="#"> <img ng-src="logo.png" style="height:50px;margin-top:-15px"/></a>
+                <a class="navbar-brand" href="#" style="margin-top:-10px">Компания Гранд+</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">

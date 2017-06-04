@@ -84,11 +84,11 @@ module.exports = function(engine,api) {
                 }
 
 
+
                 return Stock.FindAllSend(query);
 
             }
         }
     });   
-    
     return Stock;
 }

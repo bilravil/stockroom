@@ -6,14 +6,22 @@
   </div>
   <div class="container-fluid">
     <div class="row" style="border-bottom: 1px solid #ccc;padding-top:20px;">
-      <div class="col-xs-3"> Наименование материала</div>
+      <div class="col-xs-1"> Номер задачи</div>
+      <div class="col-xs-2"> Статус</div>
+      <div class="col-xs-2"> Наименование материала</div>
       <div class="col-xs-3"> Материал</div>
       <div class="col-xs-2"> Наличие</div>
       <div class="col-xs-2"> Чертеж</div>
     </div>
     <div class="row" ng-repeat="item in items" style="border-bottom: 1px solid #ccc;">
-      <a href="#" ng-click="Switch(item)">
-        <div class="col-xs-3">
+      <a href="#" ng-click="EditTask(item)">
+        <div class="col-xs-1">
+          {{item['number']}}
+        </div>
+        <div class="col-xs-2">
+          {{item['status'] == 'finished'? 'Завершено' : 'Назначено' }}
+        </div>
+        <div class="col-xs-2">
           {{item['material.name']}}
         </div>
         <div class="col-xs-3" >

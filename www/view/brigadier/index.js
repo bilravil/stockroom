@@ -48,6 +48,21 @@ app.directive('dxBrigadierTask', function ($timeout, $http, $rootScope) {
                 
             };
 
+            $scope.EditTask = function (item) {
+                $rootScope.modalDialog({ 
+                    edit: item, 
+                    template: "<dx-edit-task></dx-edit-task>" }, function (data) {
+                        if(data === undefined) return; 
+                        let req = {idTask : data.id, idWorker : data.idWorker};                       
+                        $http.post('/Db/Work/Create',  req).
+                        then(function (result) { });
+                        req = {id : data.id, status: data.status}
+                        $http.post('/Db/Task/Update',  req).
+                        then(function (result) { });
+                });
+                
+            };
+
             $scope.Search();
         }
     }
@@ -130,14 +145,14 @@ app.directive('dxWorkerEdit', function($timeout, $http) {
     }
 });
 
-app.directive('dxCreateNewTask', function ($timeout, $http, $rootScope) {
+app.directive('dxEditTask', function ($timeout, $http, $rootScope) {
     return {
         restrict: 'E',
         replace: true,
         scope: {
 
         },
-        templateUrl:"view/brigadier/newtask.html",
+        templateUrl:"view/brigadier/edittask.html",
 
         link: function ($scope, $element) {
             $scope.edit = $scope.$parent.param.edit;
@@ -149,6 +164,30 @@ app.directive('dxCreateNewTask', function ($timeout, $http, $rootScope) {
                 console.log($scope.edit);
                 $scope.$parent.close();
             }  
+        }
+    }
+});
+
+app.directive('dxWorkerList', function ($timeout, $http,$rootScope) {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+            edit: '='
+        },
+        template:
+        '<div style="display: inline-block;">'+
+        '<select class="form-control" ng-model="edit.idWorker" placeholder="Рабочий" ng-options="item.id as item.first for item in idWorker" style="margin-right:5px;"></select></div>',
+
+        link: function ($scope, $element, $attrs) { 
+            let filter = { name: "", paging: { all: 0, current: 0, show: 10 } };
+            $http.post('/Db/Worker/Get', filter ).
+                then(function (result) {
+                    if (result.status != undefined && result.status == 200) {
+                        $scope.idWorker = result.data.rows;
+                       // $scope.filter.materialId = $scope.division[0].uuid;
+                    }
+                });
         }
     }
 });

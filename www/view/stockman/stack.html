@@ -26,16 +26,11 @@
             <div ng-show="view=='edit'">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#description">Описание</a></li>
-                    <li><a data-toggle="tab" href="#store">Хранение</a></li>
                 </ul>
                 <div class="tab-content" style="margin-top:20px">
                     <div id="description" class="tab-pane fade in active">
                         <dx-stack-edit edit="select"  visibility-url="false"></dx-stack-edit>
                         <dx-field name="" width-label="col-sm-2" width-value="col-sm-10"><button class="btn btn-primary">Сохранить</button></dx-field>
-                    </div>
-                    <div id="store" class="tab-pane fade">
-                        <button class="btn btn-primary" ng-click="AddMaterial(select)">Добавить материал</button>
-                            
                     </div>
                 </div>
             </div>

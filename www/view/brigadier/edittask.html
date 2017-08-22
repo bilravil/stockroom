@@ -1,0 +1,18 @@
+<div>
+    <div class="modal-header">        
+        <button type="button" class="close" data-dismiss="modal" ng-click = "Close()">&times;</button>
+        <h3 class="modal-title">Редактирование задачи</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal" role="form">
+           <dx-field name="Номер" width-label="col-sm-4" width-value="col-sm-5"><input type="text" class="form-control" ng-model="edit.number" readonly /></dx-field>
+            <dx-field name="Наименование" width-label="col-sm-4" width-value="col-sm-5"><input type="text" class="form-control" ng-model="edit.name" readonly/></dx-field>
+            <dx-field name="Статус" width-label="col-sm-4" width-value="col-sm-5"><dx-status edit="edit"></dx-status></dx-field>
+            <dx-field name="Рабочий" width-label="col-sm-4" width-value="col-sm-5"><dx-worker-list edit="edit"></dx-worker-list></dx-field>
+        </div>
+    </div>
+    <div class="modal-footer">
+    
+        <button class="btn btn-primary" ng-click="Add()">Применить изменения</button>
+    </div>
+</div>
